@@ -2,7 +2,9 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.TaskManagerAppWithAlarmReminder" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">@color/primary_color</item>
     </style>
 
     <style name="Theme.TaskManagerAppWithAlarmReminder" parent="Base.Theme.TaskManagerAppWithAlarmReminder" />
