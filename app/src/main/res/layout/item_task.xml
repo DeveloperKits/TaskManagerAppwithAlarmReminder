@@ -1,74 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="25dp"
-    android:layout_marginBottom="10dp"
-    app:strokeWidth="1dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="6dp"
-    app:cardCornerRadius="10dp"
-    app:cardBackgroundColor="@color/white">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginBottom="10dp"
+        app:strokeWidth="1dp"
+        android:elevation="6dp"
+        app:cardCornerRadius="10dp"
+        app:cardBackgroundColor="@color/white">
 
-        <CheckBox
-            android:id="@+id/checkbox"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello world Akash"
-            android:textColor="@color/black_text"
-            android:fontFamily="@font/archivo_medium"
-            android:textSize="18sp"
-            android:layout_toEndOf="@id/checkbox"
-            android:layout_marginTop="10dp"/>
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="7:00 Am"
-            android:fontFamily="@font/archivo_medium"
-            android:textSize="16sp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="15dp"/>
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hello world Akash"
+                android:textColor="@color/black_text"
+                android:fontFamily="@font/archivo_medium"
+                android:textSize="18sp"
+                android:layout_toEndOf="@id/checkbox"
+                android:layout_marginTop="10dp" />
 
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_marginTop="2dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="15dp"
-            android:fontFamily="@font/archivo_semibold"
-            android:text="20 Jan"
-            android:textColor="@color/primary_color"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7:00 Am"
+                android:fontFamily="@font/archivo_medium"
+                android:textSize="16sp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp" />
 
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_toStartOf="@id/date"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="15dp"
-            android:layout_toEndOf="@id/checkbox"
-            android:fontFamily="@font/archivo"
-            android:text="Early wakeup from bed and fresh"
-            android:textColor="@color/black_text"
-            android:textSize="14sp" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:layout_marginTop="2dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:fontFamily="@font/archivo_semibold"
+                android:text="20 Jan"
+                android:textColor="@color/primary_color"
+                android:textSize="14sp" />
 
-</com.google.android.material.card.MaterialCardView>
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:layout_toStartOf="@id/date"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_toEndOf="@id/checkbox"
+                android:fontFamily="@font/archivo"
+                android:text="Early wakeup from bed and fresh"
+                android:textColor="@color/black_text"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -3,16 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/addTask2">
+    app:startDestination="@id/taskList">
 
     <fragment
         android:id="@+id/taskList"
         android:name="com.example.taskmanagerappwithalarmreminder.Fragment.TaskList"
         android:label="fragment_task_list"
-        tools:layout="@layout/fragment_task_list" />
+        tools:layout="@layout/fragment_task_list" >
+        <action
+            android:id="@+id/action_taskList_to_addTask"
+            app:destination="@id/addTask" />
+    </fragment>
     <fragment
-        android:id="@+id/addTask2"
+        android:id="@+id/addTask"
         android:name="com.example.taskmanagerappwithalarmreminder.Fragment.AddTask"
         android:label="fragment_add_task"
-        tools:layout="@layout/fragment_add_task" />
+        tools:layout="@layout/fragment_add_task" >
+        <action
+            android:id="@+id/action_addTask_to_taskList"
+            app:destination="@id/taskList" />
+    </fragment>
 </navigation>
