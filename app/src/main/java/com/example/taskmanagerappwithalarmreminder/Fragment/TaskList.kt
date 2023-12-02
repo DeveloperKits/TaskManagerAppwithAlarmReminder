@@ -7,10 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskmanagerappwithalarmreminder.R
+import com.example.taskmanagerappwithalarmreminder.adapter.SwipeToDeleteCallback
 import com.example.taskmanagerappwithalarmreminder.adapter.TaskAdapter
 import com.example.taskmanagerappwithalarmreminder.databinding.FragmentTaskListBinding
+import com.example.taskmanagerappwithalarmreminder.entities.TaskModel
 import com.example.taskmanagerappwithalarmreminder.viewModel.TaskViewModel
 
 
@@ -18,6 +21,7 @@ class TaskList : Fragment() {
 
     private lateinit var binding: FragmentTaskListBinding
     private val taskViewModel: TaskViewModel by viewModels()
+    private lateinit var adapter: TaskAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +36,7 @@ class TaskList : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // init adapter and set Model
-        val adapter = TaskAdapter()
+        adapter = TaskAdapter(::taskAction)
         binding.recyclerView.layoutManager = LinearLayoutManager(activity)
         binding.recyclerView.adapter = adapter
 
@@ -40,8 +44,19 @@ class TaskList : Fragment() {
             adapter.submitList(it)
         }
 
+        val swipeToDeleteCallback = SwipeToDeleteCallback(requireContext(), adapter)
+        val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
+
         binding.addTask.setOnClickListener{
             findNavController().navigate(R.id.action_taskList_to_addTask)
+        }
+    }
+
+    private fun taskAction(taskModel: TaskModel, tag: String){
+        when(tag){
+            "Edit" -> taskViewModel.updateTask(taskModel)
+            "Delete" -> taskViewModel.deleteTask(taskModel)
         }
     }
 }

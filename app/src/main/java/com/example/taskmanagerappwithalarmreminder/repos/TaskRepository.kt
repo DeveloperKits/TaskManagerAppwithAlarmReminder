@@ -9,11 +9,19 @@ import com.example.taskmanagerappwithalarmreminder.entities.TaskModel
 class TaskRepository(context: Context) {
     private val taskDao = TaskDatabase.getDB(context).getTaskDao()
 
-    fun insertTask(taskModel: TaskModel){
+    suspend fun insertTask(taskModel: TaskModel){
         taskDao.addTask(taskModel)
     }
 
     fun getAllTasks() : LiveData<List<TaskModel>> {
         return taskDao.getAllTask()
+    }
+
+    suspend fun updateTask(taskModel: TaskModel){
+        taskDao.updateTask(taskModel)
+    }
+
+    suspend fun deleteTask(taskModel: TaskModel){
+        taskDao.deleteTask(taskModel)
     }
 }

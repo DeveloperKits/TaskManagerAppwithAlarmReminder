@@ -11,13 +11,13 @@ import com.example.taskmanagerappwithalarmreminder.entities.TaskModel
 @Dao
 interface TaskDao {
     @Insert
-    fun addTask(taskModel: TaskModel)
+    suspend fun addTask(taskModel: TaskModel)
 
     @Update
-    fun updateTask(taskModel: TaskModel)
+    suspend fun updateTask(taskModel: TaskModel)
 
     @Delete
-    fun deleteTask(taskModel: TaskModel)
+    suspend fun deleteTask(taskModel: TaskModel)
 
     @Query("select * from task order by id desc")
     fun getAllTask() : LiveData<List<TaskModel>>
