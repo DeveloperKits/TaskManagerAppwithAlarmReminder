@@ -13,6 +13,7 @@ import com.example.taskmanagerappwithalarmreminder.R
 import com.example.taskmanagerappwithalarmreminder.databinding.FragmentAddTaskBinding
 import com.example.taskmanagerappwithalarmreminder.db.TaskDatabase
 import com.example.taskmanagerappwithalarmreminder.entities.TaskModel
+import com.example.taskmanagerappwithalarmreminder.utils.WorkManagerService
 import com.example.taskmanagerappwithalarmreminder.viewModel.TaskViewModel
 import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -117,8 +118,12 @@ class AddTask : Fragment() {
                     time = time,
                     category = selectedText)
 
-                // save data
+                // save data in local
                 taskViewModel.insertTask(task)
+
+                // set a schedule for notification
+                WorkManagerService(requireContext()).schedule(tittle, 3000)
+
                 Toast.makeText(requireContext(), "Task save successfully!", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.action_addTask_to_taskList)
             }
