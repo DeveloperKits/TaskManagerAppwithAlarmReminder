@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.WorkManager
 import com.example.taskmanagerappwithalarmreminder.R
 import com.example.taskmanagerappwithalarmreminder.adapter.SwipeToDeleteCallback
 import com.example.taskmanagerappwithalarmreminder.adapter.TaskAdapter
@@ -44,6 +45,7 @@ class TaskList : Fragment() {
             adapter.submitList(it)
         }
 
+        // init swipe to delete
         val swipeToDeleteCallback = SwipeToDeleteCallback(requireContext(), adapter)
         val itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
@@ -55,8 +57,13 @@ class TaskList : Fragment() {
 
     private fun taskAction(taskModel: TaskModel, tag: String){
         when(tag){
-            "Edit" -> taskViewModel.updateTask(taskModel)
-            "Delete" -> taskViewModel.deleteTask(taskModel)
+            "Edit" -> taskViewModel.updateTask(taskModel) // edit checkbox data from room
+            "Delete" -> {
+                taskViewModel.deleteTask(taskModel) // delete row data from room
+
+                // cancel notification
+                WorkManager.getInstance(requireContext()).cancelUniqueWork(taskModel.tittle)
+            }
         }
     }
 }

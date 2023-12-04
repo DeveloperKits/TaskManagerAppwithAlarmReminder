@@ -20,9 +20,12 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.launch
+import java.time.Duration
 import java.time.Instant
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class AddTask : Fragment() {
 
@@ -121,11 +124,17 @@ class AddTask : Fragment() {
                 // save data in local
                 taskViewModel.insertTask(task)
 
+                // Convert to LocalDateTime
+                val formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy hh:mm a", Locale.ENGLISH)
+                val dateTime = LocalDateTime.parse("$date $time", formatter)
+                val now = LocalDateTime.now()
+                val delay = Duration.between(now, dateTime).toMillis()
+
                 // set a schedule for notification
-                WorkManagerService(requireContext()).schedule(tittle, 3000)
+                WorkManagerService(requireContext()).schedule(tittle, delay)
 
                 Toast.makeText(requireContext(), "Task save successfully!", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.action_addTask_to_taskList)
+                findNavController().popBackStack()
             }
         }
     }

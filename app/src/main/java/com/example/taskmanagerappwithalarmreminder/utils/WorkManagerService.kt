@@ -1,6 +1,7 @@
 package com.example.taskmanagerappwithalarmreminder.utils
 
 import android.content.Context
+import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.workDataOf
@@ -14,6 +15,7 @@ class WorkManagerService(val context: Context) {
             .setInputData(workDataOf("name" to name))
             .build()
 
-        WorkManager.getInstance(context).enqueue(request)
+        //WorkManager.getInstance(context).enqueue(request)
+        WorkManager.getInstance(context).enqueueUniqueWork(name, ExistingWorkPolicy.REPLACE, request)
     }
 }
