@@ -16,7 +16,7 @@ abstract class TaskDatabase : RoomDatabase() {
 
         fun getDB(context: Context) : TaskDatabase {
             return taskDatabase ?: synchronized(this) {
-                val db = Room.databaseBuilder(context, TaskDatabase::class.java, "todo")
+                val db = Room.databaseBuilder(context, TaskDatabase::class.java, "task")
                     .build()
 
                 taskDatabase = db

@@ -22,6 +22,10 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAllTasks()
     }
 
+    fun fetchAllTasksByCategory(category: String) : LiveData<List<TaskModel>> {
+        return repository.getAllTasksByCategory(category)
+    }
+
     fun updateTask(taskModel: TaskModel){
         taskModel.isCompleted = !taskModel.isCompleted
 

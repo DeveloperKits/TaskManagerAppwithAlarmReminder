@@ -1,11 +1,15 @@
 package com.example.taskmanagerappwithalarmreminder.Fragment
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -44,6 +48,16 @@ class AddTask : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Handle permission
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED) {
+            // Permission is not granted
+            ActivityCompat.requestPermissions(requireActivity(),
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                1)
+        }
+
 
         // Initialize the DatePicker
         val datePicker = MaterialDatePicker.Builder.datePicker()
@@ -130,12 +144,31 @@ class AddTask : Fragment() {
                 val now = LocalDateTime.now()
                 val delay = Duration.between(now, dateTime).toMillis()
 
-                // set a schedule for notification
-                WorkManagerService(requireContext()).schedule(tittle, delay)
+                if (ContextCompat.checkSelfPermission(requireContext(),
+                        Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+
+                    // set a schedule for notification
+                    WorkManagerService(requireContext()).schedule(tittle, delay)
+                }
 
                 Toast.makeText(requireContext(), "Task save successfully!", Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             }
         }
     }
+
+    override fun onRequestPermissionsResult(requestCode: Int,
+                                            permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            1 -> {
+                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    // Permission was granted
+                } else {
+                    // Permission denied
+                }
+                return
+            }
+        }
+    }
+
 }

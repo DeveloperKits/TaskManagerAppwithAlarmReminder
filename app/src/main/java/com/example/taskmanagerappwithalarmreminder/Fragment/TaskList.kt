@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -42,7 +44,14 @@ class TaskList : Fragment() {
         binding.recyclerView.adapter = adapter
 
         taskViewModel.fetchAllTasks().observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            if (it.isEmpty()){
+                binding.emptyText.visibility = View.VISIBLE
+                binding.recyclerView.visibility = View.GONE
+            }else {
+                binding.emptyText.visibility = View.GONE
+                binding.recyclerView.visibility = View.VISIBLE
+                adapter.submitList(it)
+            }
         }
 
         // init swipe to delete
@@ -52,6 +61,27 @@ class TaskList : Fragment() {
 
         binding.addTask.setOnClickListener{
             findNavController().navigate(R.id.action_taskList_to_addTask)
+        }
+
+        binding.toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+            if (isChecked) {
+                val checkedButton = toggleButton.findViewById<Button>(checkedId)
+
+                binding.textView3.text = "Task overview ${checkedButton.text}:"
+
+                // search data by category High/Low/Normal
+                taskViewModel.fetchAllTasksByCategory(checkedButton.text.toString())
+                    .observe(viewLifecycleOwner) {
+                    if (it.isEmpty()){
+                        binding.emptyText.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.GONE
+                    }else {
+                        binding.emptyText.visibility = View.GONE
+                        binding.recyclerView.visibility = View.VISIBLE
+                        adapter.submitList(it)
+                    }
+                }
+            }
         }
     }
 

@@ -76,7 +76,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:checked="true"
                     android:fontFamily="@font/archivo_medium"
                     android:text="High" />
 
@@ -104,18 +103,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/archivo_semibold"
-                android:text="Task overview"
+                android:text="Task overview All:"
                 android:textSize="16sp"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/black_text"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
 
+            <TextView
+                android:id="@+id/emptyText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fontFamily="@font/archivo_semibold"
+                android:layout_marginBottom="100dp"
+                android:text="Add your first Task"
+                android:textColor="@color/primary_color"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:paddingTop="10dp"
+                android:visibility="gone"
                 tools:listitem="@layout/item_task"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"

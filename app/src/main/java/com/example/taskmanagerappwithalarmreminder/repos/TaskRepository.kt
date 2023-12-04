@@ -17,6 +17,10 @@ class TaskRepository(context: Context) {
         return taskDao.getAllTask()
     }
 
+    fun getAllTasksByCategory(category: String) : LiveData<List<TaskModel>> {
+        return taskDao.getTasksByCategory(category)
+    }
+
     suspend fun updateTask(taskModel: TaskModel){
         taskDao.updateTask(taskModel)
     }

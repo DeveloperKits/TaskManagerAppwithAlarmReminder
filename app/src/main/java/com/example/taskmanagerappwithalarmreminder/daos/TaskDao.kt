@@ -21,4 +21,7 @@ interface TaskDao {
 
     @Query("select * from task order by id desc")
     fun getAllTask() : LiveData<List<TaskModel>>
+
+    @Query("SELECT * FROM task WHERE category = :category")
+    fun getTasksByCategory(category: String): LiveData<List<TaskModel>>
 }
