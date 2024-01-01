@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/archivo_semibold"
-                android:text="Hey, Akash"
+                android:text="Hey, User"
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/black_text"
@@ -63,7 +63,7 @@
                 android:id="@+id/toggleButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 app:singleSelection="true"
                 app:backgroundTint="@color/content_color"
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
@@ -99,16 +99,100 @@
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/archivo_semibold"
+                android:text="Start Date"
+                android:textColor="@color/black_text"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dateTextField"
+                style="?attr/textInputOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                app:startIconDrawable="@drawable/baseline_date_range_24"
+                app:startIconTint="@color/primary_color"
+                android:hint="Dec 04, 2023"
+                app:boxBackgroundColor="@color/white"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxStrokeWidth="0dp"
+                app:layout_constraintEnd_toStartOf="@+id/endDateTextField"
+                app:layout_constraintStart_toStartOf="@id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/date">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/dateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/archivo"
+                    android:inputType="datetime|date"
+                    android:focusable="false"
+                    android:textColor="@color/black_text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/archivo_semibold"
+                android:text="End Date"
+                android:textColor="@color/black_text"
+                app:layout_constraintStart_toStartOf="@+id/endDateTextField"
+                app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/endDateTextField"
+                style="?attr/textInputOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:elevation="10dp"
+                android:layout_marginStart="15dp"
+                app:startIconDrawable="@drawable/baseline_date_range_24"
+                app:startIconTint="@color/primary_color"
+                android:hint="Dec 09, 2023"
+                app:boxBackgroundColor="@color/white"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxStrokeWidth="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toEndOf="@+id/dateTextField"
+                app:layout_constraintTop_toBottomOf="@+id/date">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/endDateText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/archivo"
+                    android:inputType="datetime|date"
+                    android:focusable="false"
+                    android:textColor="@color/black_text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/archivo_semibold"
                 android:text="Task overview All:"
                 android:textSize="16sp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:textColor="@color/black_text"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
+                app:layout_constraintTop_toBottomOf="@+id/search" />
 
             <TextView
                 android:id="@+id/emptyText"
@@ -137,18 +221,31 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline2"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cornerRadius="5dp"
+                android:layout_marginTop="5dp"
+                android:text="Search"
+                android:backgroundTint="@color/primary_color"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintTop_toBottomOf="@+id/endDateTextField" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="25dp"
+                android:backgroundTint="@color/primary_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/baseline_add_24"
+                app:tint="@color/white_bg" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addTask"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/primary_color"
-            app:tint="@color/white_bg"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="25dp"
-            app:srcCompat="@drawable/baseline_add_24" />
-
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

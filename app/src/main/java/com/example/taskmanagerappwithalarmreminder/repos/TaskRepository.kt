@@ -21,6 +21,10 @@ class TaskRepository(context: Context) {
         return taskDao.getTasksByCategory(category)
     }
 
+    fun getTaskWithDateFilter(startDate: String, endDate: String): LiveData<List<TaskModel>> {
+        return taskDao.getTaskWithDateFilter(startDate, endDate)
+    }
+
     suspend fun updateTask(taskModel: TaskModel){
         taskDao.updateTask(taskModel)
     }

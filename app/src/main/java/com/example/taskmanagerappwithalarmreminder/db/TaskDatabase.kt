@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.taskmanagerappwithalarmreminder.daos.TaskDao
 import com.example.taskmanagerappwithalarmreminder.entities.TaskModel
 
-@Database(entities = [TaskModel::class], version = 1)
+@Database(entities = [TaskModel::class], version = 1, exportSchema = false)
 abstract class TaskDatabase : RoomDatabase() {
     abstract fun getTaskDao() : TaskDao
 

@@ -20,7 +20,7 @@ class TaskAdapter(val actionCallback: (TaskModel, String) -> Unit) : ListAdapter
         fun bind(taskModel: TaskModel){
             binding.title.text = taskModel.tittle
             binding.description.text = taskModel.des
-            binding.date.text = taskModel.date
+            binding.date.text = taskModel.taskDate
             binding.time.text = taskModel.time
             binding.checkbox.isChecked = taskModel.isCompleted
             binding.checkbox.setOnClickListener {

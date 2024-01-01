@@ -24,11 +24,13 @@ import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.Locale
 
 class AddTask : Fragment() {
@@ -61,7 +63,7 @@ class AddTask : Fragment() {
 
         // Initialize the DatePicker
         val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("Select date")
+            .setTitleText("Select task reminder date")
             .build()
 
         // Set OnClickListener on the EditText
@@ -117,6 +119,7 @@ class AddTask : Fragment() {
             val description = binding.desText.text.toString()
             val date = binding.dateText.text.toString()
             val time = binding.timeText.text.toString()
+            val currentDate = SimpleDateFormat("MMM dd, yyyy").format(Date()) // current date
 
             if (tittle.isNullOrBlank()){
                 binding.tittleText.error = "Please provide a tittle"
@@ -131,7 +134,8 @@ class AddTask : Fragment() {
             }else{
                 val task = TaskModel(tittle = tittle,
                     des = description,
-                    date = date,
+                    taskDate = date,
+                    currentDate = currentDate,
                     time = time,
                     category = selectedText)
 

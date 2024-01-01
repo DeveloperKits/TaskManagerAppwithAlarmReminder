@@ -24,4 +24,7 @@ interface TaskDao {
 
     @Query("SELECT * FROM task WHERE category = :category")
     fun getTasksByCategory(category: String): LiveData<List<TaskModel>>
+
+    @Query("SELECT * FROM task WHERE taskDate BETWEEN :startDate AND :endDate")
+    fun getTaskWithDateFilter(startDate: String, endDate: String): LiveData<List<TaskModel>>
 }

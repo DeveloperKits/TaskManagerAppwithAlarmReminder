@@ -1,11 +1,13 @@
 package com.example.taskmanagerappwithalarmreminder.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +20,10 @@ import com.example.taskmanagerappwithalarmreminder.adapter.TaskAdapter
 import com.example.taskmanagerappwithalarmreminder.databinding.FragmentTaskListBinding
 import com.example.taskmanagerappwithalarmreminder.entities.TaskModel
 import com.example.taskmanagerappwithalarmreminder.viewModel.TaskViewModel
+import com.google.android.material.datepicker.MaterialDatePicker
+import java.time.Instant
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 
 class TaskList : Fragment() {
@@ -51,7 +57,46 @@ class TaskList : Fragment() {
                 binding.emptyText.visibility = View.GONE
                 binding.recyclerView.visibility = View.VISIBLE
                 adapter.submitList(it)
+                Log.d("dataTable:", it.toString())
             }
+        }
+
+        // Initialize the DatePicker
+        val datePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select start date")
+            .build()
+
+        val endDatePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select end date")
+            .build()
+
+
+        // Set OnClickListener on the EditText
+        binding.dateText.setOnClickListener {
+            datePicker.show(childFragmentManager, "DATE_PICKER")
+        }
+
+        // Handle the date selection
+        datePicker.addOnPositiveButtonClickListener { selection ->
+            // Format the date and set it to the EditText
+            val dateFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy")
+            val formattedDate = Instant.ofEpochMilli(selection)
+                .atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormatter)
+            binding.dateText.setText(formattedDate)
+        }
+
+        // Set OnClickListener on the EditText
+        binding.endDateText.setOnClickListener {
+            endDatePicker.show(childFragmentManager, "DATE_PICKER")
+        }
+
+        // Handle the date selection
+        endDatePicker.addOnPositiveButtonClickListener { selection ->
+            // Format the date and set it to the EditText
+            val dateFormatter = DateTimeFormatter.ofPattern("MMM dd, yyyy")
+            val formattedDate = Instant.ofEpochMilli(selection)
+                .atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormatter)
+            binding.endDateText.setText(formattedDate)
         }
 
         // init swipe to delete
@@ -72,15 +117,38 @@ class TaskList : Fragment() {
                 // search data by category High/Low/Normal
                 taskViewModel.fetchAllTasksByCategory(checkedButton.text.toString())
                     .observe(viewLifecycleOwner) {
-                    if (it.isEmpty()){
-                        binding.emptyText.visibility = View.VISIBLE
-                        binding.recyclerView.visibility = View.GONE
-                    }else {
-                        binding.emptyText.visibility = View.GONE
-                        binding.recyclerView.visibility = View.VISIBLE
-                        adapter.submitList(it)
+                        if (it.isEmpty()){
+                            binding.emptyText.visibility = View.VISIBLE
+                            binding.recyclerView.visibility = View.GONE
+                        }else {
+                            binding.emptyText.visibility = View.GONE
+                            binding.recyclerView.visibility = View.VISIBLE
+                            adapter.submitList(it)
+                        }
                     }
-                }
+            }
+        }
+
+        binding.search.setOnClickListener {
+            val startDate = binding.dateText.text.toString()
+            val endDate = binding.endDateText.text.toString()
+
+            if (startDate.isNullOrBlank()){
+                Toast.makeText(requireContext(), "Please provide a valid date", Toast.LENGTH_LONG).show()
+            }else if (endDate.isNullOrBlank()){
+                Toast.makeText(requireContext(), "Please provide a valid time", Toast.LENGTH_LONG).show()
+            }else{
+                taskViewModel.getTaskWithDateFilter(startDate, endDate)
+                    .observe(viewLifecycleOwner) {
+                        if (it.isEmpty()){
+                            binding.emptyText.visibility = View.VISIBLE
+                            binding.recyclerView.visibility = View.GONE
+                        }else {
+                            binding.emptyText.visibility = View.GONE
+                            binding.recyclerView.visibility = View.VISIBLE
+                            adapter.submitList(it)
+                        }
+                    }
             }
         }
     }

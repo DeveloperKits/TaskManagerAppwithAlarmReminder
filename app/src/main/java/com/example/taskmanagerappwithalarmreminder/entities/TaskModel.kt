@@ -9,7 +9,8 @@ data class TaskModel(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
     val tittle: String,
     var des: String,
-    var date: String,
+    var taskDate: String,
+    var currentDate: String,
     var time: String,
     var category: String,
     @ColumnInfo(name = "completed") var isCompleted: Boolean = false

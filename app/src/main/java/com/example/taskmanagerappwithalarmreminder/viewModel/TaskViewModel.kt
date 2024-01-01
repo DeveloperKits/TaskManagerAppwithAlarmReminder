@@ -26,6 +26,10 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         return repository.getAllTasksByCategory(category)
     }
 
+    fun getTaskWithDateFilter(startDate: String, endDate: String): LiveData<List<TaskModel>> {
+        return repository.getTaskWithDateFilter(startDate, endDate)
+    }
+
     fun updateTask(taskModel: TaskModel){
         taskModel.isCompleted = !taskModel.isCompleted
 
