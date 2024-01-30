@@ -20,6 +20,8 @@ import com.example.taskmanagerappwithalarmreminder.entities.TaskModel
 import com.example.taskmanagerappwithalarmreminder.utils.WorkManagerService
 import com.example.taskmanagerappwithalarmreminder.viewModel.TaskViewModel
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -55,10 +57,8 @@ class AddTask : Fragment() {
 
         // Initialize the Mobile Ads SDK
         MobileAds.initialize(requireContext()) {}
-
         // Create an ad request
         val adRequest = AdRequest.Builder().build()
-
         // Start loading the ad
         binding.adView.loadAd(adRequest)
 
