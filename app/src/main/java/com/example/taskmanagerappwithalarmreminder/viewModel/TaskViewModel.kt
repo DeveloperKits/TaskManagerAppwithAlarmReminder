@@ -20,7 +20,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun fetchAllTasks() : LiveData<List<TaskModel>> {
         return repository.getAllTasks()
-    }
+}
 
     fun fetchAllTasksByCategory(category: String) : LiveData<List<TaskModel>> {
         return repository.getAllTasksByCategory(category)

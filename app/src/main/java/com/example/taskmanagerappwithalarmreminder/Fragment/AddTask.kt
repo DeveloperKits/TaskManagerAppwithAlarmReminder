@@ -19,6 +19,8 @@ import com.example.taskmanagerappwithalarmreminder.db.TaskDatabase
 import com.example.taskmanagerappwithalarmreminder.entities.TaskModel
 import com.example.taskmanagerappwithalarmreminder.utils.WorkManagerService
 import com.example.taskmanagerappwithalarmreminder.viewModel.TaskViewModel
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.chip.Chip
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -50,6 +52,15 @@ class AddTask : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Initialize the Mobile Ads SDK
+        MobileAds.initialize(requireContext()) {}
+
+        // Create an ad request
+        val adRequest = AdRequest.Builder().build()
+
+        // Start loading the ad
+        binding.adView.loadAd(adRequest)
 
         // Handle permission
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS)
@@ -161,6 +172,7 @@ class AddTask : Fragment() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
@@ -175,4 +187,18 @@ class AddTask : Fragment() {
         }
     }
 
+    override fun onPause() {
+        binding.adView.pause()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.adView.resume()
+    }
+
+    override fun onDestroyView() {
+        binding.adView.destroy()
+        super.onDestroyView()
+    }
 }
